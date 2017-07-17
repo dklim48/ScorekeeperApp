@@ -1,5 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { UpAndDownSetup } from '../upanddowngamesetup.model';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { UpAndDownPlayer } from '../upanddownplayer.model';
 
 @Component({
   selector: 'app-upanddownbidmodal',
@@ -7,39 +7,24 @@ import { UpAndDownSetup } from '../upanddowngamesetup.model';
   styleUrls: ['./upanddownbidmodal.component.css']
 })
 export class UpanddownbidmodalComponent implements OnInit {
-  gameSettings: UpAndDownSetup = new UpAndDownSetup();
-  playerName: string = "";
-  @Output() gameSettingsSelected = new EventEmitter<UpAndDownSetup>();
+  @Input() allRounds: number[];
+  @Input() game: UpAndDownPlayer[];
+  @Input() round: number;
 
-  addPlayer() {
-    this.gameSettings.players.push(this.playerName);
-    this.playerName = "";
-    if (this.gameSettings.rounds > this.maxRounds()) {
-      this.gameSettings.rounds = this.maxRounds();
+  changeBids(player: UpAndDownPlayer, delta: number) {
+    var arrayRound: number = this.round - 1;
+    if (player.bids[arrayRound] + delta > this.allRounds[arrayRound]) {
+      // Maybe, alert that it's too high
+    } else if (player.bids[arrayRound] + delta < 0) {
+      // Do nothing, it's obvious to see that they can't go higher than 0.
+    } else {
+      // Otherwise we're fine.
+      player.bids[this.round - 1] = player.bids[arrayRound] + delta;
     }
-  }
-
-  removePlayer(index: number) {
-    this.gameSettings.players.splice(index, 1);
-  }
-
-  changeRounds(delta: number) {
-    if (this.gameSettings.rounds + delta >= 1 && this.gameSettings.rounds + delta <= this.maxRounds()) {
-      this.gameSettings.rounds += delta;
-    }
-  }
-
-  maxRounds() {
-    return Math.floor(51 / this.gameSettings.players.length);
-  }
-
-  startGame() {
-    this.gameSettingsSelected.emit(this.gameSettings);
   }
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
 }

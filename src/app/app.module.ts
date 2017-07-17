@@ -10,6 +10,7 @@ import { UpanddownComponent } from './upanddown/upanddown.component';
 import { HomeComponent } from './home/home.component';
 import { UpanddownmodalComponent } from './upanddown/upanddownmodal/upanddownmodal.component';
 import { UpanddownbidmodalComponent } from './upanddown/upanddownbidmodal/upanddownbidmodal.component';
+import { UpanddownbooksmodalComponent } from './upanddown/upanddownbooksmodal/upanddownbooksmodal.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -24,7 +25,8 @@ const appRoutes: Routes = [
     UpanddownComponent,
     HomeComponent,
     UpanddownmodalComponent,
-    UpanddownbidmodalComponent
+    UpanddownbidmodalComponent,
+    UpanddownbooksmodalComponent
   ],
   imports: [
     BrowserModule,

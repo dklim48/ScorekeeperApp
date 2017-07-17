@@ -6,17 +6,24 @@
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary newGame" data-toggle="modal" data-target="#gameInfoModal">New Game</button>
     <app-upanddownmodal (gameSettingsSelected)="setupGame($event)"></app-upanddownmodal>
-    <app-upanddownbidmodal></app-upanddownbidmodal>
+    <button type="button" class="btn btn-primary newGame" (click)="setBids()" data-toggle="modal" data-target="#gameBidsModal">Set Bids</button>
+    <app-upanddownbidmodal [allRounds]="fullRounds" [game]="game" [round]="round"></app-upanddownbidmodal>
+    <button type="button" class="btn btn-primary newGame" (click)="setBooks()" data-toggle="modal" data-target="#gameBooksModal">Set Books</button>
+    <app-upanddownbooksmodal (completeRound)="completeRound($event)" [allRounds]="fullRounds" [game]="game" [round]="round"></app-upanddownbooksmodal>
   </div>
   <div class="row">
+    <div class="col-1"></div>
     <div class="col" *ngFor="let player of game; let i = index">
       {{player.name}}
     </div>
   </div>
   <div class="row" *ngFor="let round of fullRounds; let i = index">
-    <div class="col" *ngFor="let player of players; let j = index">
-      <div class="row"><span class="badge badge-default">Bid: {{player[j].bid[i]}}</span><span class="badge badge-success">Made: {{player[j].made[i]}}</span></div>
-      <div class="row">Gain: {{player[j].gain[i]}} Total: {{player[j].total[i]}}</div>
+    <div class="col-1">
+      {{round}}
+    </div>
+    <div class="col" *ngFor="let player of game; let j = index">
+      <div *ngIf="player.bids[i] !== undefined" class="row"><span class="badge badge-default">Bid: {{player.bids[i]}}</span><span class="badge badge-success">Made: {{player.books[i]}}</span></div>
+      <div *ngIf="player.bids[i] !== undefined" class="row">Total: {{player.total}}</div>
     </div>
   </div>
 </div>

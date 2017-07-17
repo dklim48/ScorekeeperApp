@@ -1,0 +1,6 @@
+@media (max-height: 414px) { 
+    .modalScroll {
+        overflow-y: auto;
+        max-height: 150px;
+    }
+}

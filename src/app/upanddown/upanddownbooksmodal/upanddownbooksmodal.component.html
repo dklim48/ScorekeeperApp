@@ -1,8 +1,8 @@
-<div class="modal fade" id="gameBidsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="gameBooksModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Set Bids</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Set Books</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -10,7 +10,7 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-12">
-            <label for="rounds">Bids:</label>
+            <label for="rounds">Books:</label>
           </div>
         </div>
         <div class="row" *ngFor="let player of game; let i = index">
@@ -20,11 +20,11 @@
           <div class="col-9">
             <div class="input-group">
               <span class="input-group-btn">
-                <button class="btn btn-secondary" (click)="changeBids(player, -1)" type="button">Down</button>
+                <button class="btn btn-secondary" (click)="changeBooks(player, -1)" type="button">Down</button>
               </span>
-              <input type="text" class="form-control" disabled [(ngModel)]="player.bids[round - 1]">
+              <input type="text" class="form-control" disabled [(ngModel)]="player.books[round - 1]">
               <span class="input-group-btn">
-                <button class="btn btn-secondary" (click)="changeBids(player, 1)" type="button">Up</button>
+                <button class="btn btn-secondary" (click)="changeBooks(player, 1)" type="button">Up</button>
               </span>
             </div>
           </div>
@@ -32,7 +32,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+        <button type="button" class="btn btn-primary" (click)="exit()" data-dismiss="modal">Save</button>
       </div>
     </div>
   </div>
