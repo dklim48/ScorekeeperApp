@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UpAndDownGame } from './upanddowngame.model';
+import { UpAndDownSetup } from './upanddowngamesetup.model';
+import { UpAndDownPlayer } from './upanddownplayer.model';
 
 @Component({
   selector: 'app-upanddown',
@@ -7,17 +8,29 @@ import { UpAndDownGame } from './upanddowngame.model';
   styleUrls: ['./upanddown.component.css']
 })
 export class UpanddownComponent implements OnInit {
-  players: string[] = [];
-  fullRounds:  number[] = [];
+  game: UpAndDownPlayer[] = [];
+  fullRounds: number[] = [];
 
-  setupGame(gameSettings: UpAndDownGame) {
-    this.players = gameSettings.players;
+  setupGame(gameSettings: UpAndDownSetup) {
+    for (var i = 0; i < gameSettings.players.length; i++) {
+      var player = new UpAndDownPlayer();
+      player.name = gameSettings.players[i];
+      this.game.push(player);
+    }
     for (var i = 0; i < gameSettings.rounds * 2; i++) {
       if (i < gameSettings.rounds) {
         this.fullRounds.push(i + 1);
       } else {
         this.fullRounds.push(gameSettings.rounds - (i - gameSettings.rounds));
       }
+    }
+  }
+
+  addRound(gameSettings: UpAndDownSetup) {
+    for (var i = 0; i < this.game.length; i++) {
+      var player = new UpAndDownPlayer();
+      player.name = gameSettings.players[i];
+      this.game.push(player);
     }
   }
 

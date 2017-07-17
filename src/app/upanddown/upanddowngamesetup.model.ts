@@ -1,4 +1,4 @@
-export class UpAndDownGame {
+export class UpAndDownSetup {
     public players: string[];
     public rounds: number
     constructor() {

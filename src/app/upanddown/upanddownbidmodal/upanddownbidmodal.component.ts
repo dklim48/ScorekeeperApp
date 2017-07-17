@@ -1,15 +1,15 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { UpAndDownGame } from '../upanddowngame.model';
+import { UpAndDownSetup } from '../upanddowngamesetup.model';
 
 @Component({
-  selector: 'app-upanddownroundmodal',
-  templateUrl: './upanddownroundmodal.component.html',
-  styleUrls: ['./upanddownroundmodal.component.css']
+  selector: 'app-upanddownbidmodal',
+  templateUrl: './upanddownbidmodal.component.html',
+  styleUrls: ['./upanddownbidmodal.component.css']
 })
-export class UpanddownroundmodalComponent implements OnInit {
-  gameSettings: UpAndDownGame = new UpAndDownGame();
+export class UpanddownbidmodalComponent implements OnInit {
+  gameSettings: UpAndDownSetup = new UpAndDownSetup();
   playerName: string = "";
-  @Output() gameSettingsSelected = new EventEmitter<UpAndDownGame>();
+  @Output() gameSettingsSelected = new EventEmitter<UpAndDownSetup>();
 
   addPlayer() {
     this.gameSettings.players.push(this.playerName);

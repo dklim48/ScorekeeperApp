@@ -6,11 +6,11 @@
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary newGame" data-toggle="modal" data-target="#gameInfoModal">New Game</button>
     <app-upanddownmodal (gameSettingsSelected)="setupGame($event)"></app-upanddownmodal>
-    <app-upanddownroundmodal (gameSettingsSelected)="setupGame($event)"></app-upanddownroundmodal>
+    <app-upanddownbidmodal></app-upanddownbidmodal>
   </div>
   <div class="row">
-    <div class="col" *ngFor="let player of players; let i = index">
-      {{player}}
+    <div class="col" *ngFor="let player of game; let i = index">
+      {{player.name}}
     </div>
   </div>
   <div class="row" *ngFor="let round of fullRounds; let i = index">

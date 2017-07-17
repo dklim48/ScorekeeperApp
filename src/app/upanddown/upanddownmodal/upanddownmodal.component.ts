@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { UpAndDownGame } from '../upanddowngame.model';
+import { UpAndDownSetup } from '../upanddowngamesetup.model';
 
 @Component({
   selector: 'app-upanddownmodal',
@@ -7,9 +7,9 @@ import { UpAndDownGame } from '../upanddowngame.model';
   styleUrls: ['./upanddownmodal.component.css']
 })
 export class UpanddownmodalComponent implements OnInit {
-  gameSettings: UpAndDownGame = new UpAndDownGame();
+  gameSettings: UpAndDownSetup = new UpAndDownSetup();
   playerName: string = "";
-  @Output() gameSettingsSelected = new EventEmitter<UpAndDownGame>();
+  @Output() gameSettingsSelected = new EventEmitter<UpAndDownSetup>();
 
   addPlayer() {
     this.gameSettings.players.push(this.playerName);
