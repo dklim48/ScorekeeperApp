@@ -7,20 +7,23 @@ import { UpAndDownSetup } from '../upanddowngamesetup.model';
   styleUrls: ['./upanddownmodal.component.css']
 })
 export class UpanddownmodalComponent implements OnInit {
+  badName: boolean = false;
   gameSettings: UpAndDownSetup = new UpAndDownSetup();
   playerName: string = "";
+
   @Output() gameSettingsSelected = new EventEmitter<UpAndDownSetup>();
 
   addPlayer() {
-    this.gameSettings.players.push(this.playerName);
-    this.playerName = "";
-    if (this.gameSettings.rounds > this.maxRounds()) {
-      this.gameSettings.rounds = this.maxRounds();
+    if (this.playerName === "") {
+      this.badName = true;
+    } else {
+      this.badName = false;
+      this.gameSettings.players.push(this.playerName);
+      this.playerName = "";
+      if (this.gameSettings.rounds > this.maxRounds()) {
+        this.gameSettings.rounds = this.maxRounds();
+      }
     }
-  }
-
-  removePlayer(index: number) {
-    this.gameSettings.players.splice(index, 1);
   }
 
   changeRounds(delta: number) {
@@ -29,17 +32,26 @@ export class UpanddownmodalComponent implements OnInit {
     }
   }
 
+  constructor() { }
+
+  isValid() {
+    if (this.gameSettings.players.length >= 2 && this.gameSettings.rounds > 0) {
+      return true;
+    }
+    return false;
+  }
+
   maxRounds() {
     return Math.floor(51 / this.gameSettings.players.length);
+  }
+
+  ngOnInit() { }
+
+  removePlayer(index: number) {
+    this.gameSettings.players.splice(index, 1);
   }
 
   startGame() {
     this.gameSettingsSelected.emit(this.gameSettings);
   }
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
 }

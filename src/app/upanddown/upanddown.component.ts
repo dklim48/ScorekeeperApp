@@ -11,6 +11,7 @@ export class UpanddownComponent implements OnInit {
   game: UpAndDownPlayer[] = [];
   fullRounds: number[] = [];
   round: number;
+  gameInProgress: boolean = false;
 
   addRound(gameSettings: UpAndDownSetup) {
     for (var i = 0; i < this.game.length; i++) {
@@ -24,6 +25,7 @@ export class UpanddownComponent implements OnInit {
     var arrRound : number = this.round - 1;
     for (var i = 0; i < this.game.length; i++) {
       var delta = this.game[i].bids[arrRound] === this.game[i].books[arrRound] ? 10 + this.game[i].books[arrRound] : this.game[i].books[arrRound];
+      this.game[i].gain[arrRound] = delta;
       this.game[i].total += delta;
     }
     this.round += 1;
@@ -46,6 +48,7 @@ export class UpanddownComponent implements OnInit {
   }
 
   setupGame(gameSettings: UpAndDownSetup) {
+    this.gameInProgress = true;
     this.round = 1;
     this.game = [];
     this.fullRounds = [];

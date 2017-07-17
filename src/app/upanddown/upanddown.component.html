@@ -1,15 +1,21 @@
 <div class="container">
-  <div class="row">
+  <div class="row justify-content-center">
     <h1>Up and Down</h1>
   </div>
-  <div class="row justify-content-center">
+  <div *ngIf="!gameInProgress" class="row justify-content-center">
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary newGame" data-toggle="modal" data-target="#gameInfoModal">New Game</button>
     <app-upanddownmodal (gameSettingsSelected)="setupGame($event)"></app-upanddownmodal>
-    <button type="button" class="btn btn-primary newGame" (click)="setBids()" data-toggle="modal" data-target="#gameBidsModal">Set Bids</button>
-    <app-upanddownbidmodal [allRounds]="fullRounds" [game]="game" [round]="round"></app-upanddownbidmodal>
-    <button type="button" class="btn btn-primary newGame" (click)="setBooks()" data-toggle="modal" data-target="#gameBooksModal">Set Books</button>
-    <app-upanddownbooksmodal (completeRound)="completeRound($event)" [allRounds]="fullRounds" [game]="game" [round]="round"></app-upanddownbooksmodal>
+  </div>
+  <div *ngIf="gameInProgress" class="row justify-content-around">
+    <div class="col-3 col-sm-2">
+      <button type="button" class="btn btn-primary newGame align-self-center" (click)="setBids()" data-toggle="modal" data-target="#gameBidsModal">Set Bids</button>
+      <app-upanddownbidmodal [allRounds]="fullRounds" [game]="game" [round]="round"></app-upanddownbidmodal>
+    </div>
+    <div class="col-3 col-sm-2">
+      <button type="button" class="btn btn-primary newGame align-self-center" (click)="setBooks()" data-toggle="modal" data-target="#gameBooksModal">Set Books</button>
+      <app-upanddownbooksmodal (completeRound)="completeRound($event)" [allRounds]="fullRounds" [game]="game" [round]="round"></app-upanddownbooksmodal>
+    </div>
   </div>
   <div class="row">
     <div class="col-1"></div>
@@ -23,7 +29,7 @@
     </div>
     <div class="col" *ngFor="let player of game; let j = index">
       <div *ngIf="player.bids[i] !== undefined" class="row"><span class="badge badge-default">Bid: {{player.bids[i]}}</span><span class="badge badge-success">Made: {{player.books[i]}}</span></div>
-      <div *ngIf="player.bids[i] !== undefined" class="row">Total: {{player.total}}</div>
+      <div *ngIf="player.gain[i] !== undefined" class="row">Gain: {{player.gain[i]}} Total: {{player.total}}</div>
     </div>
   </div>
 </div>

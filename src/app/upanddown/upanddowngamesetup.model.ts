@@ -3,6 +3,6 @@ export class UpAndDownSetup {
     public rounds: number
     constructor() {
         this.players = [];
-        this.rounds = null;
+        this.rounds = 6;
      }
 }
