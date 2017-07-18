@@ -12,22 +12,21 @@ export class UpanddownComponent implements OnInit {
   fullRounds: number[] = [];
   round: number;
   gameInProgress: boolean = false;
+  readyForBid: boolean = true;
+  readyForBooks: boolean = false;
 
-  addRound(gameSettings: UpAndDownSetup) {
-    for (var i = 0; i < this.game.length; i++) {
-      var player = new UpAndDownPlayer();
-      player.name = gameSettings.players[i];
-      this.game.push(player);
-    }
-  }
-
-  completeRound (round: number) {
+  setBooks (roundBooks: number[]) {
     var arrRound : number = this.round - 1;
+    for (var i = 0; i < this.game.length; i++) {
+      this.game[i].books[arrRound] = roundBooks[i];
+    }
     for (var i = 0; i < this.game.length; i++) {
       var delta = this.game[i].bids[arrRound] === this.game[i].books[arrRound] ? 10 + this.game[i].books[arrRound] : this.game[i].books[arrRound];
       this.game[i].gain[arrRound] = delta;
       this.game[i].total += delta;
     }
+    this.readyForBid = true;
+    this.readyForBooks = false;
     this.round += 1;
   }
 
@@ -35,16 +34,12 @@ export class UpanddownComponent implements OnInit {
 
   ngOnInit() { }
 
-  setBids() {
+  setBids(roundBids: number[]) {
     for (var i = 0; i < this.game.length; i++) {
-      this.game[i].bids[this.round - 1] = 0;
+      this.game[i].bids[this.round - 1] = roundBids[i];
     }
-  }
-
-  setBooks() {
-    for (var i = 0; i < this.game.length; i++) {
-      this.game[i].books[this.round - 1] = 0;
-    }
+    this.readyForBid = false;
+    this.readyForBooks = true;
   }
 
   setupGame(gameSettings: UpAndDownSetup) {

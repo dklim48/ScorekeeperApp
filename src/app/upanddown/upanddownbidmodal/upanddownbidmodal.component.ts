@@ -8,19 +8,28 @@ import { UpAndDownPlayer } from '../upanddownplayer.model';
 })
 export class UpanddownbidmodalComponent implements OnInit {
   @Input() allRounds: number[];
-  @Input() game: UpAndDownPlayer[];
   @Input() round: number;
+  @Input() game: UpAndDownPlayer[];
+  @Output() roundBids = new EventEmitter<number[]>();
 
-  changeBids(player: UpAndDownPlayer, delta: number) {
-    var arrayRound: number = this.round - 1;
-    if (player.bids[arrayRound] + delta > this.allRounds[arrayRound]) {
+  bids: number[] = [];
+
+  changeBids(index: number, delta: number) {
+    if(!this.bids[index]) {
+      this.bids[index] = 0;
+    }
+    if (this.bids[index] + delta > this.allRounds[this.round - 1]) {
       // Maybe, alert that it's too high
-    } else if (player.bids[arrayRound] + delta < 0) {
+    } else if (this.bids[index] + delta < 0) {
       // Do nothing, it's obvious to see that they can't go higher than 0.
     } else {
       // Otherwise we're fine.
-      player.bids[this.round - 1] = player.bids[arrayRound] + delta;
+      this.bids[index] = this.bids[index] + delta;
     }
+  }
+
+  save() {
+    this.roundBids.emit(this.bids);
   }
 
   constructor() { }

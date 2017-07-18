@@ -20,11 +20,11 @@
           <div class="col-9">
             <div class="input-group">
               <span class="input-group-btn">
-                <button class="btn btn-secondary" (click)="changeBooks(player, -1)" type="button">Down</button>
+                <button class="btn btn-secondary" (click)="changeBooks(i, -1)" type="button">Down</button>
               </span>
-              <input type="text" class="form-control" disabled [(ngModel)]="player.books[round - 1]">
+              <input type="text" class="form-control" disabled [(ngModel)]="books[i]">
               <span class="input-group-btn">
-                <button class="btn btn-secondary" (click)="changeBooks(player, 1)" type="button">Up</button>
+                <button class="btn btn-secondary" (click)="changeBooks(i, 1)" type="button">Up</button>
               </span>
             </div>
           </div>
@@ -32,7 +32,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" (click)="exit()" data-dismiss="modal">Save</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="!isValid" (click)="save()">Save</button>
       </div>
     </div>
   </div>

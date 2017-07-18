@@ -10,30 +10,40 @@ export class UpanddownbooksmodalComponent implements OnInit {
   @Input() game: UpAndDownPlayer[];
   @Input() round: number;
   @Input() allRounds: number[];
-  @Output() completeRound = new EventEmitter<number>();
+  @Output() completeRound = new EventEmitter<number[]>();
 
-  changeBooks(player: UpAndDownPlayer, delta: number) {
-    var arrayRound: number = this.round - 1;
+  books: number[] = [];
+  isValid: boolean = false;
+
+  changeBooks(index: number, delta: number) {
     var totalBooks: number = 0;
-    for (var i = 0; i < this.game.length; i++) {
-      totalBooks += this.game[i].books[arrayRound];
+    if (!this.books[index]) {
+      this.books[index] = 0;
     }
-    if (totalBooks + delta > this.allRounds[arrayRound]) {
+    for (var i = 0; i < this.books.length; i++) {
+      totalBooks += this.books[i];
+    }
+    if (totalBooks + delta > this.allRounds[this.round - 1]) {
       // Maybe alert that it's too high
-    } else if (player.books[arrayRound] + delta < 0) {
-      // Do nothing, it's obvious to see that they can't go higher than 0.
+    } else if (this.books[index] + delta < 0) {
+      // Do nothing, it's obvious to see that they can't go lower than 0.
     } else {
       // Otherwise we're fine.
-      player.books[this.round - 1] = player.books[arrayRound] + delta;
+      this.books[index] = this.books[index] + delta;
+      // Check to see if we have a valid amount of books to save
+      if (totalBooks + delta === this.round) {
+        this.isValid = true;
+      } else {
+        this.isValid = false;
+      }
     }
-  }
-
-  exit() {
-    this.completeRound.emit(this.round);
   }
 
   constructor() { }
 
-  ngOnInit() { }
+  save() {
+    this.completeRound.emit(this.books);
+  }
 
+  ngOnInit() { }
 }

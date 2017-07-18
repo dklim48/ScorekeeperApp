@@ -9,12 +9,12 @@
   </div>
   <div *ngIf="gameInProgress" class="row justify-content-around">
     <div class="col-3 col-sm-2">
-      <button type="button" class="btn btn-primary newGame align-self-center" (click)="setBids()" data-toggle="modal" data-target="#gameBidsModal">Set Bids</button>
-      <app-upanddownbidmodal [allRounds]="fullRounds" [game]="game" [round]="round"></app-upanddownbidmodal>
+      <button type="button" class="btn btn-primary newGame align-self-center" [disabled]="!readyForBid" data-toggle="modal" data-target="#gameBidsModal">Set Bids</button>
+      <app-upanddownbidmodal (roundBids)="setBids($event)" [allRounds]="fullRounds" [game]="game" [round]="round"></app-upanddownbidmodal>
     </div>
     <div class="col-3 col-sm-2">
-      <button type="button" class="btn btn-primary newGame align-self-center" (click)="setBooks()" data-toggle="modal" data-target="#gameBooksModal">Set Books</button>
-      <app-upanddownbooksmodal (completeRound)="completeRound($event)" [allRounds]="fullRounds" [game]="game" [round]="round"></app-upanddownbooksmodal>
+      <button type="button" class="btn btn-primary newGame align-self-center" [disabled]="!readyForBooks" data-toggle="modal" data-target="#gameBooksModal">Set Books</button>
+      <app-upanddownbooksmodal (completeRound)="setBooks($event)" [allRounds]="fullRounds" [game]="game" [round]="round"></app-upanddownbooksmodal>
     </div>
   </div>
   <div class="row">
