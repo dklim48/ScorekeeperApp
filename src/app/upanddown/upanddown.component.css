@@ -1,6 +1,11 @@
-@media (max-width: 576px) { 
-    .newGame {
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-}
+/* @media (max-width: 576px) { 
+	table {
+		overflow-x: auto;
+		display: block;
+	}
+} */
+
+ .topBotMargin {
+    margin-top: 10px;
+    margin-bottom: 10px;
+} 

@@ -14,6 +14,10 @@ export class UpanddownbidmodalComponent implements OnInit {
 
   bids: number[] = [];
 
+  initBids() {
+    console.log("focused!");
+  }
+
   changeBids(index: number, delta: number) {
     if(!this.bids[index]) {
       this.bids[index] = 0;
