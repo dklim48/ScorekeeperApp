@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { UpAndDownGame } from '../upanddowngame.model';
 import { UpAndDownPlayer } from '../upanddownplayer.model';
 
 @Component({
@@ -7,33 +8,22 @@ import { UpAndDownPlayer } from '../upanddownplayer.model';
   styleUrls: ['./upanddownbidmodal.component.css']
 })
 export class UpanddownbidmodalComponent implements OnInit {
-  @Input() allRounds: number[];
-  @Input() round: number;
-  @Input() game: UpAndDownPlayer[];
-  @Output() roundBids = new EventEmitter<number[]>();
+  @Input() game: UpAndDownGame;
+  @Output() resetBids = new EventEmitter<number>();
 
-  bids: number[] = [];
-
-  initBids() {
-    console.log("focused!");
-  }
-
-  changeBids(index: number, delta: number) {
-    if(!this.bids[index]) {
-      this.bids[index] = 0;
-    }
-    if (this.bids[index] + delta > this.allRounds[this.round - 1]) {
+  changeBids(player: UpAndDownPlayer, delta: number) {
+    if (player.bids[this.game.currentRound - 1] + delta > this.game.displayRounds[this.game.currentRound - 1]) {
       // Maybe, alert that it's too high
-    } else if (this.bids[index] + delta < 0) {
+    } else if (player.bids[this.game.currentRound - 1] + delta < 0) {
       // Do nothing, it's obvious to see that they can't go higher than 0.
     } else {
       // Otherwise we're fine.
-      this.bids[index] = this.bids[index] + delta;
+      player.bids[this.game.currentRound - 1] = player.bids[this.game.currentRound - 1] + delta;
     }
   }
 
-  save() {
-    this.roundBids.emit(this.bids);
+  cancel() {
+    this.resetBids.emit(this.game.currentRound);
   }
 
   constructor() { }
