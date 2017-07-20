@@ -31,7 +31,7 @@ export class UpanddownbooksmodalComponent implements OnInit {
       // Otherwise we're fine.
       player.books[this.game.currentRound - 1] = player.books[this.game.currentRound - 1] + delta;
       // Check to see if we have a valid amount of books to save
-      if (totalBooks + delta === this.game.currentRound) {
+      if (totalBooks + delta === this.game.displayRounds[this.game.currentRound - 1]) {
         this.isValid = true;
       } else {
         this.isValid = false;

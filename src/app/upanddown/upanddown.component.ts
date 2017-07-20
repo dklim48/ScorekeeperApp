@@ -11,22 +11,46 @@ import { UpAndDownPlayer } from './upanddownplayer.model';
 export class UpanddownComponent implements OnInit {
   game: UpAndDownGame = new UpAndDownGame();
   gameInProgress: boolean = false;
+  winners: string[] = [];
 
-  completeRound () {
-    var arrRound : number = this.game.currentRound - 1;
+  completeRound() {
+    var arrRound: number = this.game.currentRound - 1;
     for (var i = 0; i < this.game.players.length; i++) {
       var delta = this.game.players[i].bids[arrRound] === this.game.players[i].books[arrRound] ? 10 + this.game.players[i].books[arrRound] : this.game.players[i].books[arrRound];
       this.game.players[i].gain[arrRound] = delta;
       this.game.players[i].total += delta;
     }
-    this.game.currentRound += 1;
+    if (this.game.currentRound === this.game.displayRounds.length) {
+      this.determineWinner();
+    } else {
+      this.game.currentRound += 1;
+    }
   }
-  
+
+  determineWinner() {
+    var highest: number = 0;
+    for (var i = 0; i < this.game.players.length; i++) {
+      if (this.game.players[i].total === highest) {
+        this.winners.push(this.game.players[i].name);
+      } else if (this.game.players[i].total > highest) {
+        this.winners = [];
+        this.winners.push(this.game.players[i].name);
+        highest = this.game.players[i].total;
+      }
+    }
+  }
+
+  doneGame() {
+    this.game = new UpAndDownGame();
+    this.winners = [];
+    this.gameInProgress = false;
+  }
+
   constructor() { }
 
   initBids() {
     for (var i = 0; i < this.game.players.length; i++) {
-      if(!this.game.players[i].bids[this.game.currentRound - 1]){
+      if (!this.game.players[i].bids[this.game.currentRound - 1]) {
         this.game.players[i].bids[this.game.currentRound - 1] = 0;
       }
     }
@@ -34,7 +58,7 @@ export class UpanddownComponent implements OnInit {
 
   initBooks() {
     for (var i = 0; i < this.game.players.length; i++) {
-      if(!this.game.players[i].books[this.game.currentRound - 1]){
+      if (!this.game.players[i].books[this.game.currentRound - 1]) {
         this.game.players[i].books[this.game.currentRound - 1] = 0;
       }
     }
@@ -51,6 +75,18 @@ export class UpanddownComponent implements OnInit {
   resetBooks(round: number) {
     for (var i = 0; i < this.game.players.length; i++) {
       this.game.players[i].books[this.game.currentRound - 1] = 0;
+    }
+  }
+
+  resetGame() {
+    this.gameInProgress = true;
+    this.winners = [];
+    this.game.currentRound = 1;
+    for (var i = 0; i < this.game.players.length; i++) {
+      this.game.players[i].bids = [];
+      this.game.players[i].books = [];
+      this.game.players[i].gain = [];
+      this.game.players[i].total = 0;
     }
   }
 
