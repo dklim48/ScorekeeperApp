@@ -2,24 +2,29 @@
   <div class="row justify-content-center">
     <h1 class="display-4">Up and Down</h1>
   </div>
-  <div *ngIf="!gameInProgress" class="card">
-    <div class="card-block">
-      Up and down is a variation of "Oh Hell!". Players make bids on the amount of books they think they'll make in each round.
+  <div *ngIf="!gameInProgress" class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-block">
+          Up and down is a variation of "Oh Hell!". Players make bids on the amount of books they think they'll make in each round.
+        </div>
+        <div class="row justify-content-center">
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary topBotMargin" data-toggle="modal" data-target="#gameInfoModal">New Game</button>
+          <app-upanddownmodal (gameSettingsSelected)="setupGame($event)"></app-upanddownmodal>
+        </div>
+      </div>
     </div>
   </div>
-  <div *ngIf="!gameInProgress" class="row justify-content-center">
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary topBotMargin" data-toggle="modal" data-target="#gameInfoModal">New Game</button>
-    <app-upanddownmodal (gameSettingsSelected)="setupGame($event)"></app-upanddownmodal>
-  </div>
-  <div *ngIf="gameInProgress" class="row justify-content-around">
-    <div class="col-3 col-sm-2">
-      <button type="button" class="btn btn-primary topBotMargin" (click)="initBids()" data-toggle="modal" data-target="#gameBidsModal">Set Bids</button>
-      <app-upanddownbidmodal (resetBids)="resetBids($event)" [game]="game"></app-upanddownbidmodal>
-    </div>
-    <div class="col-3 col-sm-2">
-      <button type="button" class="btn btn-primary topBotMargin" (click)="initBooks()" data-toggle="modal" data-target="#gameBooksModal">Set Books</button>
-      <app-upanddownbooksmodal (completeRound)="completeRound($event)" (resetBooks)="resetBooks($event)" [game]="game"></app-upanddownbooksmodal>
+  <div *ngIf="gameInProgress" class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-block">
+          Set bids before the round using "Bids" button.<br>
+          Set tricks made after the round using "Tricks Made" button.<br>
+          Edit a rounds bids or tricks by pressing the round number.<br>
+        </div>
+      </div>
     </div>
   </div>
   <table *ngIf="gameInProgress" class="table table-responsive table-striped">
@@ -31,16 +36,24 @@
     </thead>
     <tbody>
       <tr *ngFor="let round of game.displayRounds; let i = index">
-        <th scope="row">{{round}}</th>
-        <td *ngFor="let player of game.players; let j = index">
-          <div *ngIf="player.bids[i] !== undefined">
-            <span class="badge badge-default">Bid: {{player.bids[i]}}</span>
-            <span class="badge badge-{{player.bids[i] === player.books[i] ? 'success' : 'danger'}}">Made: {{player.books[i]}}</span>
-          </div>
-          <div *ngIf="player.gain[i] !== undefined">
-            +{{player.gain[i]}}
-          </div>
+        <th scope="row"><button type="button" class="btn btn-link">{{round}}</button></th>
+        <td [attr.colspan]="game.players.length" *ngIf="i === game.currentRound - 1;else players_info">
+          <button type="button" class="btn btn-outline-primary topBotMargin" (click)="initBids()" data-toggle="modal" data-target="#gameBidsModal">Bids</button>
+          <app-upanddownbidmodal (resetBids)="resetBids($event)" [game]="game"></app-upanddownbidmodal>
+          <button type="button" class="btn btn-outline-primary topBotMargin" (click)="initBooks()" data-toggle="modal" data-target="#gameBooksModal">Tricks Made</button>
+          <app-upanddownbooksmodal (completeRound)="completeRound($event)" (resetBooks)="resetBooks($event)" [game]="game"></app-upanddownbooksmodal>
         </td>
+        <ng-template #players_info>
+          <td *ngFor="let player of game.players; let j = index">
+            <div *ngIf="player.bids[i] !== undefined">
+              <span class="badge badge-default">Bid: {{player.bids[i]}}</span>
+              <span class="badge badge-{{player.bids[i] === player.books[i] ? 'success' : 'danger'}}">Made: {{player.books[i]}}</span>
+            </div>
+            <div *ngIf="player.gain[i] !== undefined">
+              +{{player.gain[i]}}
+            </div>
+          </td>
+        </ng-template>
       </tr>
       <tr>
         <th>#</th>
