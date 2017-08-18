@@ -3,6 +3,7 @@ export class UpAndDownPlayer {
     public bids: number[];
     public books: number[];
     public gain: number[];
+    public roundTotal: number[];
     public total: number;
 
     constructor() {
@@ -10,6 +11,7 @@ export class UpAndDownPlayer {
         this.bids = [];
         this.books = [];
         this.gain = [];
+        this.roundTotal = [];
         this.total = 0;
     }
 }

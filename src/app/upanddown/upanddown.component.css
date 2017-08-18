@@ -1,11 +1,4 @@
-/* @media (max-width: 576px) { 
-	table {
-		overflow-x: auto;
-		display: block;
-	}
-} */
-
- .topBotMargin {
+.topBotMargin {
     margin-top: 10px;
     margin-bottom: 10px;
-} 
+}

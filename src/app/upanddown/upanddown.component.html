@@ -27,21 +27,24 @@
       </div>
     </div>
   </div>
-  <table *ngIf="gameInProgress" class="table table-responsive table-striped">
+  <div class="table-responsive">
+  <table *ngIf="gameInProgress" class="table table-striped">
     <thead>
       <tr>
         <th>#</th>
-        <th *ngFor="let player of game.players; let i = index">{{player.name}} - {{player.total}}</th>
+        <th *ngFor="let player of game.players; let i = index">{{player.name}}</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let round of game.displayRounds; let i = index">
         <th scope="row"><button type="button" class="btn btn-link">{{round}}</button></th>
         <td [attr.colspan]="game.players.length" *ngIf="i === game.currentRound - 1;else players_info">
-          <button type="button" class="btn btn-outline-primary topBotMargin" (click)="initBids()" data-toggle="modal" data-target="#gameBidsModal">Bids</button>
-          <app-upanddownbidmodal (resetBids)="resetBids($event)" [game]="game"></app-upanddownbidmodal>
-          <button type="button" class="btn btn-outline-primary topBotMargin" (click)="initBooks()" data-toggle="modal" data-target="#gameBooksModal">Tricks Made</button>
-          <app-upanddownbooksmodal (completeRound)="completeRound($event)" (resetBooks)="resetBooks($event)" [game]="game"></app-upanddownbooksmodal>
+          <div class="row justify-content-around">
+            <button type="button" class="btn btn-outline-primary topBotMargin" (click)="initBids()" data-toggle="modal" data-target="#gameBidsModal">Bids</button>
+            <app-upanddownbidmodal (resetBids)="resetBids($event)" [game]="game"></app-upanddownbidmodal>
+            <button type="button" class="btn btn-outline-primary topBotMargin" (click)="initBooks()" data-toggle="modal" data-target="#gameBooksModal">Tricks Made</button>
+            <app-upanddownbooksmodal (completeRound)="completeRound($event)" (resetBooks)="resetBooks($event)" [game]="game"></app-upanddownbooksmodal>
+          </div>
         </td>
         <ng-template #players_info>
           <td *ngFor="let player of game.players; let j = index">
@@ -50,7 +53,7 @@
               <span class="badge badge-{{player.bids[i] === player.books[i] ? 'success' : 'danger'}}">Made: {{player.books[i]}}</span>
             </div>
             <div *ngIf="player.gain[i] !== undefined">
-              +{{player.gain[i]}}
+              <span>{{player.roundTotal[i]}} (+{{player.gain[i]}})</span>
             </div>
           </td>
         </ng-template>
@@ -61,6 +64,7 @@
       </tr>
     </tbody>
   </table>
+</div>
   <div *ngIf="winners.length !== 0" class="alert alert-info alert-dismissible fade show" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
