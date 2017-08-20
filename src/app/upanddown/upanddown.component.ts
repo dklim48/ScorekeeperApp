@@ -19,6 +19,7 @@ export class UpanddownComponent implements OnInit {
       var delta = this.game.players[i].bids[arrRound] === this.game.players[i].books[arrRound] ? 10 + this.game.players[i].books[arrRound] : this.game.players[i].books[arrRound];
       this.game.players[i].gain[arrRound] = delta;
       this.game.players[i].total += delta;
+      this.game.players[i].roundTotal[arrRound] = this.game.players[i].total;
     }
     if (this.game.currentRound === this.game.displayRounds.length) {
       this.determineWinner();
@@ -86,6 +87,7 @@ export class UpanddownComponent implements OnInit {
       this.game.players[i].bids = [];
       this.game.players[i].books = [];
       this.game.players[i].gain = [];
+      this.game.players[i].roundTotal = [];
       this.game.players[i].total = 0;
     }
   }
