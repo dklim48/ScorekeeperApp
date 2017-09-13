@@ -1,0 +1,36 @@
+<div class="modal fade" data-backdrop="static" id="editModal" tabindex="-1" role="dialog" aria-labelledby="EditModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editRoundLabel">Edit Round</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#bids" role="tab">Edit Bids</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#tricks" role="tab">Edit Tricks</a>
+            </li>
+          </ul>
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div class="tab-pane active" id="bids" role="tabpanel">
+                <app-upandownbidcontent [round]="editRound" [game]="game"></app-upandownbidcontent>
+            </div>
+            <div class="tab-pane" id="tricks" role="tabpanel">
+                <app-upandowntrickscontent [game]="game"></app-upandowntrickscontent>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="!isValid">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>

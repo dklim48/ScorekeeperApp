@@ -2,3 +2,15 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+tr {
+    display: block;
+}
+th, td {
+    width: 300px;
+}
+tbody {
+    display: block;
+    height: 50vh;
+    overflow: auto;
+}

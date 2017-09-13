@@ -3,12 +3,15 @@ import { UpAndDownSetup } from './upanddowngamesetup.model';
 import { UpAndDownGame } from './upanddowngame.model';
 import { UpAndDownPlayer } from './upanddownplayer.model';
 
+declare var jQuery: any;
+
 @Component({
   selector: 'app-upanddown',
   templateUrl: './upanddown.component.html',
   styleUrls: ['./upanddown.component.css']
 })
 export class UpanddownComponent implements OnInit {
+  editRound: number = 1;
   game: UpAndDownGame = new UpAndDownGame();
   gameInProgress: boolean = false;
   winners: string[] = [];
@@ -65,6 +68,11 @@ export class UpanddownComponent implements OnInit {
     }
   }
 
+  launchEditModal(editRound: number) {
+    this.editRound = editRound + 1;
+    jQuery('#editModal').modal('show');
+  }
+
   ngOnInit() { }
 
   resetBids(round: number) {
@@ -90,6 +98,10 @@ export class UpanddownComponent implements OnInit {
       this.game.players[i].roundTotal = [];
       this.game.players[i].total = 0;
     }
+  }
+
+  showModal() {
+    jQuery('#gameInfoModal').modal('show');
   }
 
   setupGame(gameSettings: UpAndDownSetup) {
