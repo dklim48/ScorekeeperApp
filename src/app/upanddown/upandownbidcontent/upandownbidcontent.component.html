@@ -12,7 +12,7 @@
       <span class="input-group-btn">
           <button class="btn btn-secondary" (click)="changeBids(player, -1)" type="button">Down</button>
         </span>
-      <input type="text" class="form-control" disabled [(ngModel)]="player.bids[game.currentRound - 1]">
+      <input type="text" class="form-control" disabled [(ngModel)]="player.bids[round - 1]">
       <span class="input-group-btn">
           <button class="btn btn-secondary" (click)="changeBids(player, 1)" type="button">Up</button>
         </span>

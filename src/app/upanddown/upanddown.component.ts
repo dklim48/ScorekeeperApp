@@ -17,13 +17,7 @@ export class UpanddownComponent implements OnInit {
   winners: string[] = [];
 
   completeRound() {
-    var arrRound: number = this.game.currentRound - 1;
-    for (var i = 0; i < this.game.players.length; i++) {
-      var delta = this.game.players[i].bids[arrRound] === this.game.players[i].books[arrRound] ? 10 + this.game.players[i].books[arrRound] : this.game.players[i].books[arrRound];
-      this.game.players[i].gain[arrRound] = delta;
-      this.game.players[i].total += delta;
-      this.game.players[i].roundTotal[arrRound] = this.game.players[i].total;
-    }
+    this.game.calculateRound(this.game.currentRound);
     if (this.game.currentRound === this.game.displayRounds.length) {
       this.determineWinner();
     } else {

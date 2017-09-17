@@ -8,11 +8,11 @@
         </button>
       </div>
       <div class="modal-body">
-        <app-upandowntrickscontent [game]="game"></app-upandowntrickscontent>
+        <app-upandowntrickscontent [round]="game.currentRound" [game]="game"></app-upandowntrickscontent>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="cancel()" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" (click)="save()" data-dismiss="modal">Save</button>
+        <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!game.checkRound(game.currentRound)" data-dismiss="modal">Save</button>
       </div>
     </div>
   </div>

@@ -12,8 +12,10 @@ export class UpanddowneditmodalComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-    console.log("Edit Modal Round Number Sent: " + this.editRound)
+  save(){
+    this.game.udpateRound(this.editRound);
   }
+
+  ngOnInit() { }
 
 }
