@@ -36,7 +36,7 @@ export class UpAndDownGame {
         for (let player of this.players) {
             totalTricks += player.books[arrayRound];
         }
-        return totalTricks === round ? true : false;
+        return totalTricks === this.displayRounds[arrayRound] ? true : false;
     }
 
     /**
@@ -55,12 +55,12 @@ export class UpAndDownGame {
             } else if (newGain < oldGain) {
                 this.players[i].total -= delta;
             }
-            this.players[i].roundTotal[arrayRound] = this.players[i].roundTotal[arrayRound - 1] + newGain;
+            this.players[i].roundTotal[arrayRound] = (arrayRound === 0) ? newGain : this.players[i].roundTotal[arrayRound - 1] + newGain;
             this.players[i].gain[arrayRound] = newGain;
         }
         for (i = round; i <  this.currentRound; i++) {
             for (var j = 0; j < this.players.length; j++) {
-                this.players[j].roundTotal[i] = this.players[j].roundTotal[i-1] + this.players[j].gain[i-1];
+                this.players[j].roundTotal[i] = this.players[j].roundTotal[i-1] + this.players[j].gain[i];
             }
         }
     }

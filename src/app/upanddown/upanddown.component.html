@@ -45,9 +45,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let round of game.displayRounds; let i = index; trackBy:trackByIndex;">
+        <tr *ngFor="let round of game.displayRounds; let i = index;">
           <th scope="row">
-            <button type="button" class="btn btn-link" (click)="launchEditModal(i)">{{round}}</button>
+            <button type="button" class="btn btn-link" [disabled]="i >= game.currentRound - 1" (click)="launchEditModal(i)">{{round}}</button>
             <app-upanddowneditmodal [editRound]="editRound" [game]="game"></app-upanddowneditmodal>
           </th>
           <td *ngFor="let player of game.players; let j = index">
