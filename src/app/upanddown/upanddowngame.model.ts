@@ -48,7 +48,7 @@ export class UpAndDownGame {
         for (var i = 0; i < this.players.length; i++) {
             var newGain = this.players[i].bids[arrayRound] === this.players[i].books[arrayRound] ? 10 + this.players[i].books[arrayRound] : this.players[i].books[arrayRound];
             var oldGain = this.players[i].gain[arrayRound];
-            var delta = newGain - oldGain;
+            var delta = Math.abs(newGain - oldGain);
             if (newGain > oldGain) {
                 this.players[i].total += delta;
                 
@@ -58,7 +58,7 @@ export class UpAndDownGame {
             this.players[i].roundTotal[arrayRound] = (arrayRound === 0) ? newGain : this.players[i].roundTotal[arrayRound - 1] + newGain;
             this.players[i].gain[arrayRound] = newGain;
         }
-        for (i = round; i <  this.currentRound; i++) {
+        for (i = round; i <  this.currentRound - 1; i++) {
             for (var j = 0; j < this.players.length; j++) {
                 this.players[j].roundTotal[i] = this.players[j].roundTotal[i-1] + this.players[j].gain[i];
             }

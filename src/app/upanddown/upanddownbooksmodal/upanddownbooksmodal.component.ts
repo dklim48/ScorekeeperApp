@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UpAndDownGame } from '../upanddowngame.model';
 import { UpAndDownPlayer } from '../upanddownplayer.model';
 
+declare var jQuery: any;
+
 @Component({
   selector: 'app-upanddownbooksmodal',
   templateUrl: './upanddownbooksmodal.component.html',
@@ -20,6 +22,7 @@ export class UpanddownbooksmodalComponent implements OnInit {
 
   save() {
     this.completeRound.emit(this.game.currentRound);
+    jQuery('#gameBooksModal').modal('hide');
   }
 
   ngOnInit() { }
