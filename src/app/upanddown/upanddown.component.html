@@ -10,7 +10,7 @@
         </div>
         <div class="row justify-content-center">
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary topBotMargin" data-toggle="modal" data-target="#gameInfoModal">New Game</button>
+          <button type="button" class="btn btn-primary topBotMargin" (click)="showModal()">New Game</button>
           <app-upanddownmodal (gameSettingsSelected)="setupGame($event)"></app-upanddownmodal>
         </div>
       </div>
@@ -26,27 +26,30 @@
         </div>
       </div>
     </div>
+    <div class="col align-self-center">
+      <button type="button" class="btn btn-outline-primary topBotMargin" (click)="initBids()" data-toggle="modal" data-target="#gameBidsModal">Bids</button>
+      <app-upanddownbidmodal (resetBids)="resetBids($event)" [game]="game"></app-upanddownbidmodal>
+    </div>
+    <div class="col"></div>
+    <div class="col align-self-center">
+      <button type="button" class="btn btn-outline-primary topBotMargin" (click)="initBooks()" data-toggle="modal" data-target="#gameBooksModal">Tricks Made</button>
+      <app-upanddownbooksmodal (completeRound)="completeRound($event)" (resetBooks)="resetBooks($event)" [game]="game"></app-upanddownbooksmodal>
+    </div>
   </div>
   <div class="table-responsive">
-  <table *ngIf="gameInProgress" class="table table-striped">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th *ngFor="let player of game.players; let i = index">{{player.name}}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let round of game.displayRounds; let i = index">
-        <th scope="row"><button type="button" class="btn btn-link">{{round}}</button></th>
-        <td [attr.colspan]="game.players.length" *ngIf="i === game.currentRound - 1;else players_info">
-          <div class="row justify-content-around">
-            <button type="button" class="btn btn-outline-primary topBotMargin" (click)="initBids()" data-toggle="modal" data-target="#gameBidsModal">Bids</button>
-            <app-upanddownbidmodal (resetBids)="resetBids($event)" [game]="game"></app-upanddownbidmodal>
-            <button type="button" class="btn btn-outline-primary topBotMargin" (click)="initBooks()" data-toggle="modal" data-target="#gameBooksModal">Tricks Made</button>
-            <app-upanddownbooksmodal (completeRound)="completeRound($event)" (resetBooks)="resetBooks($event)" [game]="game"></app-upanddownbooksmodal>
-          </div>
-        </td>
-        <ng-template #players_info>
+    <table *ngIf="gameInProgress" class="table table-striped table--fixed">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th *ngFor="let player of game.players; let i = index">{{player.name}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let round of game.displayRounds; let i = index;">
+          <th scope="row">
+            <button type="button" class="btn btn-link" [disabled]="i >= game.currentRound - 1" (click)="launchEditModal(i)">{{round}}</button>
+            <app-upanddowneditmodal [editRound]="editRound" [game]="game"></app-upanddowneditmodal>
+          </th>
           <td *ngFor="let player of game.players; let j = index">
             <div *ngIf="player.bids[i] !== undefined">
               <span class="badge badge-default">Bid: {{player.bids[i]}}</span>
@@ -56,15 +59,14 @@
               <span>{{player.roundTotal[i]}} (+{{player.gain[i]}})</span>
             </div>
           </td>
-        </ng-template>
-      </tr>
-      <tr>
-        <th>#</th>
-        <th *ngFor="let player of game.players; let i = index">{{player.name}} - {{player.total}}</th>
-      </tr>
-    </tbody>
-  </table>
-</div>
+        </tr>
+        <tr>
+          <th>#</th>
+          <th *ngFor="let player of game.players; let i = index">{{player.name}} - {{player.total}}</th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <div *ngIf="winners.length !== 0" class="alert alert-info alert-dismissible fade show" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>

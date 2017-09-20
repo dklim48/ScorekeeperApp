@@ -11,6 +11,10 @@ import { HomeComponent } from './home/home.component';
 import { UpanddownmodalComponent } from './upanddown/upanddownmodal/upanddownmodal.component';
 import { UpanddownbidmodalComponent } from './upanddown/upanddownbidmodal/upanddownbidmodal.component';
 import { UpanddownbooksmodalComponent } from './upanddown/upanddownbooksmodal/upanddownbooksmodal.component';
+import { UpanddowneditmodalComponent } from './upanddown/upanddowneditmodal/upanddowneditmodal.component';
+import { UpandownbidcontentComponent } from './upanddown/upandownbidcontent/upandownbidcontent.component';
+import { UpandowntrickscontentComponent } from './upanddown/upandowntrickscontent/upandowntrickscontent.component';
+import { FooterComponent } from './footer/footer.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -26,7 +30,11 @@ const appRoutes: Routes = [
     HomeComponent,
     UpanddownmodalComponent,
     UpanddownbidmodalComponent,
-    UpanddownbooksmodalComponent
+    UpanddownbooksmodalComponent,
+    UpanddowneditmodalComponent,
+    UpandownbidcontentComponent,
+    UpandowntrickscontentComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

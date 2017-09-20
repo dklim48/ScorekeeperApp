@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-12">
+    <label for="rounds">Bids:</label>
+  </div>
+</div>
+<div class="row" *ngFor="let player of game.players; let i = index">
+  <div class="col-3">
+    {{player.name}}:
+  </div>
+  <div class="col-9">
+    <div class="input-group">
+      <span class="input-group-btn">
+          <button class="btn btn-secondary" (click)="changeBids(player, -1)" type="button">Down</button>
+        </span>
+      <input type="text" class="form-control" disabled [(ngModel)]="player.bids[round - 1]">
+      <span class="input-group-btn">
+          <button class="btn btn-secondary" (click)="changeBids(player, 1)" type="button">Up</button>
+        </span>
+    </div>
+  </div>
+</div>
