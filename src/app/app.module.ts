@@ -14,6 +14,7 @@ import { UpanddownbooksmodalComponent } from './upanddown/upanddownbooksmodal/up
 import { UpanddowneditmodalComponent } from './upanddown/upanddowneditmodal/upanddowneditmodal.component';
 import { UpandownbidcontentComponent } from './upanddown/upandownbidcontent/upandownbidcontent.component';
 import { UpandowntrickscontentComponent } from './upanddown/upandowntrickscontent/upandowntrickscontent.component';
+import { FooterComponent } from './footer/footer.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -32,7 +33,8 @@ const appRoutes: Routes = [
     UpanddownbooksmodalComponent,
     UpanddowneditmodalComponent,
     UpandownbidcontentComponent,
-    UpandowntrickscontentComponent
+    UpandowntrickscontentComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
