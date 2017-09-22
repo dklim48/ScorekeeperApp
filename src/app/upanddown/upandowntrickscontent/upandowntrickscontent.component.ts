@@ -26,6 +26,19 @@ export class UpandowntrickscontentComponent implements OnInit {
     }
   }
 
+  checkMade(player: UpAndDownPlayer) {
+    var totalBooks: number = 0;
+    for (var i = 0; i < this.game.players.length; i++) {
+      totalBooks += this.game.players[i].books[this.round - 1];
+    }
+    if (totalBooks + player.bids[this.round - 1] > this.game.displayRounds[this.round - 1]) {
+      // Maybe alert that it's too high
+    } else {
+      // Otherwise we're fine.
+      player.books[this.round - 1] = player.bids[this.round - 1];
+    }
+  }
+
   constructor() { }
 
   ngOnInit() {
