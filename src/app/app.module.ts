@@ -17,8 +17,7 @@ import { UpandowntrickscontentComponent } from './upanddown/upandowntricksconten
 import { FooterComponent } from './footer/footer.component';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  { path: '', component: HomeComponent },
   { path: 'upanddown', component: UpanddownComponent }
 ];
 
