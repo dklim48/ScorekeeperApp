@@ -2,3 +2,7 @@ p {
     padding-left: 15px;
     padding-right: 15px;
 }
+
+.blockquote {
+    margin-top: 16px;
+}
